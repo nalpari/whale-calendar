@@ -106,9 +106,12 @@ function getDayOfWeek(date) {
 function generateCalendarGrid(year, month) {
   const firstDayOfMonth = new Date(year, month - 1, 1);
   const startDayOfWeek = firstDayOfMonth.getDay();
+  const lastDayOfMonth = new Date(year, month, 0);
+  const daysInMonth = lastDayOfMonth.getDate();
+  const weeksNeeded = Math.ceil((startDayOfWeek + daysInMonth) / 7);
   const startDate = new Date(year, month - 1, 1 - startDayOfWeek);
   const grid = [];
-  for (let week = 0; week < 6; week++) {
+  for (let week = 0; week < weeksNeeded; week++) {
     const weekRow = [];
     for (let day = 0; day < 7; day++) {
       const currentDate = new Date(startDate);

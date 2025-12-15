@@ -62,10 +62,17 @@ describe('getDayOfWeek', () => {
 });
 
 describe('generateCalendarGrid', () => {
-  it('should generate 6 weeks (42 days)', () => {
+  it('should generate only weeks containing current month days', () => {
+    // December 2024: Dec 1 is Sunday, 31 days → 5 weeks
     const grid = generateCalendarGrid(2024, 12);
+    expect(grid).toHaveLength(5);
+    expect(grid.flat()).toHaveLength(35);
+  });
+
+  it('should generate 6 weeks when month spans 6 weeks', () => {
+    // August 2025: Aug 1 is Friday, 31 days → 6 weeks needed
+    const grid = generateCalendarGrid(2025, 8);
     expect(grid).toHaveLength(6);
-    expect(grid.flat()).toHaveLength(42);
   });
 
   it('should start with Sunday', () => {

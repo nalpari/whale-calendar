@@ -38,18 +38,25 @@ export function getDayOfWeek(date: Date): number {
 }
 
 /**
- * 해당 월의 캘린더 그리드 생성 (6주 고정)
+ * 해당 월의 캘린더 그리드 생성 (현재 달 날짜가 포함된 주까지만)
  */
 export function generateCalendarGrid(year: number, month: number): CalendarCell[][] {
   const firstDayOfMonth = new Date(year, month - 1, 1);
   const startDayOfWeek = firstDayOfMonth.getDay();
+
+  // 해당 월의 마지막 날
+  const lastDayOfMonth = new Date(year, month, 0);
+  const daysInMonth = lastDayOfMonth.getDate();
+
+  // 필요한 주 수 계산
+  const weeksNeeded = Math.ceil((startDayOfWeek + daysInMonth) / 7);
 
   // 그리드 시작일 (이전 달 포함)
   const startDate = new Date(year, month - 1, 1 - startDayOfWeek);
 
   const grid: CalendarCell[][] = [];
 
-  for (let week = 0; week < 6; week++) {
+  for (let week = 0; week < weeksNeeded; week++) {
     const weekRow: CalendarCell[] = [];
     for (let day = 0; day < 7; day++) {
       const currentDate = new Date(startDate);

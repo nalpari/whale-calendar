@@ -91,7 +91,7 @@ declare function isToday(date: Date): boolean;
  */
 declare function getDayOfWeek(date: Date): number;
 /**
- * 해당 월의 캘린더 그리드 생성 (6주 고정)
+ * 해당 월의 캘린더 그리드 생성 (현재 달 날짜가 포함된 주까지만)
  */
 declare function generateCalendarGrid(year: number, month: number): CalendarCell[][];
 
