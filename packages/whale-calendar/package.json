@@ -1,0 +1,57 @@
+{
+  "name": "whale-calendar",
+  "version": "0.1.0",
+  "description": "A Korean-style monthly schedule calendar component for React",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsup && cp src/styles.css dist/styles.css",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "jsdom": "^25.0.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5",
+    "vitest": "^2.0.0"
+  },
+  "keywords": [
+    "react",
+    "calendar",
+    "schedule",
+    "korean",
+    "monthly"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/whale-calendar"
+  }
+}
