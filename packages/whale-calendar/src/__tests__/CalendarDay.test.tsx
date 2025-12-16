@@ -26,7 +26,9 @@ describe('CalendarDay', () => {
   it('should render schedule badge when schedule is provided', () => {
     const schedule = { id: '1', label: '10:00~18:00' };
     render(<CalendarDay {...baseProps} schedules={[schedule]} />);
-    expect(screen.getByText('10:00~18:00')).toBeInTheDocument();
+    // 구분자로 분리되어 두 줄로 표시됨
+    expect(screen.getByText('10:00')).toBeInTheDocument();
+    expect(screen.getByText('18:00')).toBeInTheDocument();
   });
 
   it('should render holiday text', () => {
@@ -47,7 +49,9 @@ describe('CalendarDay', () => {
     render(
       <CalendarDay {...baseProps} schedules={[schedule]} onScheduleClick={onScheduleClick} />
     );
-    fireEvent.click(screen.getByText('10:00~18:00'));
+    // 분리된 텍스트 요소를 통해 뱃지 클릭
+    const badge = screen.getByText('10:00').closest('.whale-calendar__schedule-badge');
+    fireEvent.click(badge!);
     expect(onScheduleClick).toHaveBeenCalledWith(baseProps.date, schedule);
   });
 

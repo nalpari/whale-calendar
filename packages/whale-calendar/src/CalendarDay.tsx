@@ -101,16 +101,36 @@ export function CalendarDay({
           <div className={getDayNumberClass()}>{day}</div>
         </div>
       </div>
-      {schedules?.map((schedule) => (
-        <div
-          key={schedule.id}
-          className="whale-calendar__schedule-badge"
-          style={schedule.color ? { backgroundColor: schedule.color } : undefined}
-          onClick={(e) => handleScheduleClick(schedule, e)}
-        >
-          <div className="whale-calendar__schedule-badge-text">{schedule.label}</div>
-        </div>
-      ))}
+      {schedules?.map((schedule) => {
+        // 구분자(~, -, ~, -)를 기준으로 라벨을 분리하여 두 줄로 표시
+        const separators = ['~', '~', ' - ', '-'];
+        let parts: string[] = [schedule.label];
+
+        for (const sep of separators) {
+          if (schedule.label.includes(sep)) {
+            parts = schedule.label.split(sep).map(p => p.trim());
+            break;
+          }
+        }
+
+        return (
+          <div
+            key={schedule.id}
+            className="whale-calendar__schedule-badge"
+            style={schedule.color ? { backgroundColor: schedule.color } : undefined}
+            onClick={(e) => handleScheduleClick(schedule, e)}
+          >
+            {parts.length >= 2 ? (
+              <div className="whale-calendar__schedule-badge-lines">
+                <div className="whale-calendar__schedule-badge-text">{parts[0]}</div>
+                <div className="whale-calendar__schedule-badge-text">{parts[1]}</div>
+              </div>
+            ) : (
+              <div className="whale-calendar__schedule-badge-text">{schedule.label}</div>
+            )}
+          </div>
+        );
+      })}
       {holiday && <div className="whale-calendar__holiday">{holiday}</div>}
     </div>
   );

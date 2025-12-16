@@ -49,7 +49,9 @@ describe('WhaleCalendar', () => {
       },
     };
     render(<WhaleCalendar year={2024} month={12} data={data} />);
-    expect(screen.getByText('10:00~18:00')).toBeInTheDocument();
+    // 구분자로 분리되어 두 줄로 표시됨
+    expect(screen.getByText('10:00')).toBeInTheDocument();
+    expect(screen.getByText('18:00')).toBeInTheDocument();
   });
 
   it('should render holiday', () => {

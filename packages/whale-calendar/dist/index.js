@@ -104,16 +104,29 @@ function CalendarDay({
             children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: getDayNumberClass(), children: day })
           }
         ) }),
-        schedules?.map((schedule) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "div",
-          {
-            className: "whale-calendar__schedule-badge",
-            style: schedule.color ? { backgroundColor: schedule.color } : void 0,
-            onClick: (e) => handleScheduleClick(schedule, e),
-            children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "whale-calendar__schedule-badge-text", children: schedule.label })
-          },
-          schedule.id
-        )),
+        schedules?.map((schedule) => {
+          const separators = ["~", "~", " - ", "-"];
+          let parts = [schedule.label];
+          for (const sep of separators) {
+            if (schedule.label.includes(sep)) {
+              parts = schedule.label.split(sep).map((p) => p.trim());
+              break;
+            }
+          }
+          return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "div",
+            {
+              className: "whale-calendar__schedule-badge",
+              style: schedule.color ? { backgroundColor: schedule.color } : void 0,
+              onClick: (e) => handleScheduleClick(schedule, e),
+              children: parts.length >= 2 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "whale-calendar__schedule-badge-lines", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "whale-calendar__schedule-badge-text", children: parts[0] }),
+                /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "whale-calendar__schedule-badge-text", children: parts[1] })
+              ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "whale-calendar__schedule-badge-text", children: schedule.label })
+            },
+            schedule.id
+          );
+        }),
         holiday && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "whale-calendar__holiday", children: holiday })
       ]
     }

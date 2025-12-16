@@ -247,6 +247,13 @@
   opacity: 0.85;
 }
 
+.whale-calendar__schedule-badge-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
 .whale-calendar__schedule-badge-text {
   text-align: center;
   font-size: var(--whale-calendar-font-size-schedule);
