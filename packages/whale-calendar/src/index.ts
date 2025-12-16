@@ -11,6 +11,7 @@ export {
   formatDateKey,
   parseDateKey,
   isToday,
+  isSameDay,
   getDayOfWeek,
   generateCalendarGrid,
 } from './utils';

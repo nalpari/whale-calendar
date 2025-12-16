@@ -40,6 +40,8 @@ export interface WhaleCalendarProps {
   month?: number;
   /** 날짜별 데이터 */
   data?: CalendarData;
+  /** 선택된 날짜 (Controlled) */
+  selectedDate?: Date;
   /** 오늘 날짜 하이라이트 여부 (기본값: true) */
   showToday?: boolean;
   /** 이전/다음 달 날짜 표시 여부 (기본값: true) */

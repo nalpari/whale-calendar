@@ -3,6 +3,7 @@ import {
   formatDateKey,
   parseDateKey,
   isToday,
+  isSameDay,
   getDayOfWeek,
   generateCalendarGrid,
 } from '../utils';
@@ -46,6 +47,38 @@ describe('isToday', () => {
   it('should return false for other days', () => {
     const otherDay = new Date(2024, 11, 16);
     expect(isToday(otherDay)).toBe(false);
+  });
+});
+
+describe('isSameDay', () => {
+  it('should return true for same day', () => {
+    const date1 = new Date(2024, 11, 15);
+    const date2 = new Date(2024, 11, 15);
+    expect(isSameDay(date1, date2)).toBe(true);
+  });
+
+  it('should return true for same day with different time', () => {
+    const date1 = new Date(2024, 11, 15, 10, 30);
+    const date2 = new Date(2024, 11, 15, 18, 45);
+    expect(isSameDay(date1, date2)).toBe(true);
+  });
+
+  it('should return false for different days', () => {
+    const date1 = new Date(2024, 11, 15);
+    const date2 = new Date(2024, 11, 16);
+    expect(isSameDay(date1, date2)).toBe(false);
+  });
+
+  it('should return false for different months', () => {
+    const date1 = new Date(2024, 11, 15);
+    const date2 = new Date(2024, 10, 15);
+    expect(isSameDay(date1, date2)).toBe(false);
+  });
+
+  it('should return false for different years', () => {
+    const date1 = new Date(2024, 11, 15);
+    const date2 = new Date(2023, 11, 15);
+    expect(isSameDay(date1, date2)).toBe(false);
   });
 });
 

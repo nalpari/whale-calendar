@@ -38,6 +38,8 @@ interface WhaleCalendarProps {
     month?: number;
     /** 날짜별 데이터 */
     data?: CalendarData;
+    /** 선택된 날짜 (Controlled) */
+    selectedDate?: Date;
     /** 오늘 날짜 하이라이트 여부 (기본값: true) */
     showToday?: boolean;
     /** 이전/다음 달 날짜 표시 여부 (기본값: true) */
@@ -56,7 +58,7 @@ interface WhaleCalendarProps {
     locale?: 'ko' | 'en';
 }
 
-declare function WhaleCalendar({ year: initialYear, month: initialMonth, data, showToday, showAdjacentDays, onMonthChange, onDayClick, onDayHover, onScheduleClick, className, locale, }: WhaleCalendarProps): react_jsx_runtime.JSX.Element;
+declare function WhaleCalendar({ year: initialYear, month: initialMonth, data, selectedDate, showToday, showAdjacentDays, onMonthChange, onDayClick, onDayHover, onScheduleClick, className, locale, }: WhaleCalendarProps): react_jsx_runtime.JSX.Element;
 
 interface CalendarDayProps {
     date: Date;
@@ -65,6 +67,7 @@ interface CalendarDayProps {
     isSunday: boolean;
     isSaturday: boolean;
     isToday?: boolean;
+    isSelected?: boolean;
     schedules?: ScheduleItem[];
     holiday?: string;
     highlight?: boolean;
@@ -72,7 +75,7 @@ interface CalendarDayProps {
     onDayHover?: (date: Date | null) => void;
     onScheduleClick?: (date: Date, schedule: ScheduleItem) => void;
 }
-declare function CalendarDay({ date, day, isCurrentMonth, isSunday, isSaturday, isToday, schedules, holiday, highlight, onDayClick, onDayHover, onScheduleClick, }: CalendarDayProps): react_jsx_runtime.JSX.Element;
+declare function CalendarDay({ date, day, isCurrentMonth, isSunday, isSaturday, isToday, isSelected, schedules, holiday, highlight, onDayClick, onDayHover, onScheduleClick, }: CalendarDayProps): react_jsx_runtime.JSX.Element;
 
 /**
  * 날짜를 'YYYY-MM-DD' 형식으로 변환
@@ -87,6 +90,10 @@ declare function parseDateKey(key: string): Date;
  */
 declare function isToday(date: Date): boolean;
 /**
+ * 두 날짜가 같은 날인지 비교
+ */
+declare function isSameDay(date1: Date, date2: Date): boolean;
+/**
  * 요일 인덱스 반환 (0=일, 6=토)
  */
 declare function getDayOfWeek(date: Date): number;
@@ -95,4 +102,4 @@ declare function getDayOfWeek(date: Date): number;
  */
 declare function generateCalendarGrid(year: number, month: number): CalendarCell[][];
 
-export { type CalendarCell, type CalendarData, CalendarDay, type DayData, type ScheduleItem, WhaleCalendar, type WhaleCalendarProps, formatDateKey, generateCalendarGrid, getDayOfWeek, isToday, parseDateKey };
+export { type CalendarCell, type CalendarData, CalendarDay, type DayData, type ScheduleItem, WhaleCalendar, type WhaleCalendarProps, formatDateKey, generateCalendarGrid, getDayOfWeek, isSameDay, isToday, parseDateKey };

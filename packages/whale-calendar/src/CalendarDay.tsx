@@ -7,6 +7,7 @@ interface CalendarDayProps {
   isSunday: boolean;
   isSaturday: boolean;
   isToday?: boolean;
+  isSelected?: boolean;
   schedules?: ScheduleItem[];
   holiday?: string;
   highlight?: boolean;
@@ -22,6 +23,7 @@ export function CalendarDay({
   isSunday,
   isSaturday,
   isToday = false,
+  isSelected = false,
   schedules,
   holiday,
   highlight = false,
@@ -34,19 +36,21 @@ export function CalendarDay({
   const getDayNumberClass = () => {
     const classes = ['whale-calendar__day-number'];
 
-    if (isToday) {
+    // 선택 상태가 최우선
+    if (isSelected) {
+      classes.push('whale-calendar__day-number--selected');
+    } else if (isToday) {
       classes.push('whale-calendar__day-number--today');
     } else if (hasSchedule) {
       classes.push('whale-calendar__day-number--has-schedule');
     }
 
     if (!isCurrentMonth) {
+      classes.push('whale-calendar__day-number--other-month');
       if (isSunday) {
         classes.push('whale-calendar__day-number--other-month-sunday');
       } else if (isSaturday) {
         classes.push('whale-calendar__day-number--other-month-saturday');
-      } else {
-        classes.push('whale-calendar__day-number--other-month');
       }
     } else if (isSunday || holiday) {
       classes.push('whale-calendar__day-number--sunday');

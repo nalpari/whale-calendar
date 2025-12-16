@@ -11,6 +11,7 @@
   --whale-calendar-border: #EDEDED;
   --whale-calendar-bg: #FFFFFF;
   --whale-calendar-highlight-bg: #F2F8D4;
+  --whale-calendar-selected: #3B82F6;
   --whale-calendar-day-min-height: 54px;
   --whale-calendar-nav-button-size: 32px;
   --whale-calendar-font-size-title: 16px;
@@ -196,6 +197,17 @@
 
 .whale-calendar__day-number--has-schedule {
   font-weight: 600;
+}
+
+.whale-calendar__day-number--selected {
+  background-color: var(--whale-calendar-selected);
+  color: var(--whale-calendar-bg);
+  border-radius: var(--whale-calendar-radius-full);
+  font-weight: 600;
+}
+
+.whale-calendar__day-number--selected.whale-calendar__day-number--other-month {
+  opacity: 0.6;
 }
 
 .whale-calendar__day-number--sunday {

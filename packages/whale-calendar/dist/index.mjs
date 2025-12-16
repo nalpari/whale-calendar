@@ -7,6 +7,7 @@ function CalendarDay({
   isSunday,
   isSaturday,
   isToday: isToday2 = false,
+  isSelected = false,
   schedules,
   holiday,
   highlight = false,
@@ -17,18 +18,19 @@ function CalendarDay({
   const hasSchedule = schedules && schedules.length > 0;
   const getDayNumberClass = () => {
     const classes = ["whale-calendar__day-number"];
-    if (isToday2) {
+    if (isSelected) {
+      classes.push("whale-calendar__day-number--selected");
+    } else if (isToday2) {
       classes.push("whale-calendar__day-number--today");
     } else if (hasSchedule) {
       classes.push("whale-calendar__day-number--has-schedule");
     }
     if (!isCurrentMonth) {
+      classes.push("whale-calendar__day-number--other-month");
       if (isSunday) {
         classes.push("whale-calendar__day-number--other-month-sunday");
       } else if (isSaturday) {
         classes.push("whale-calendar__day-number--other-month-saturday");
-      } else {
-        classes.push("whale-calendar__day-number--other-month");
       }
     } else if (isSunday || holiday) {
       classes.push("whale-calendar__day-number--sunday");
@@ -100,6 +102,9 @@ function isToday(date) {
   const today = /* @__PURE__ */ new Date();
   return date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate();
 }
+function isSameDay(date1, date2) {
+  return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
+}
 function getDayOfWeek(date) {
   return date.getDay();
 }
@@ -166,6 +171,7 @@ function WhaleCalendar({
   year: initialYear,
   month: initialMonth,
   data = {},
+  selectedDate,
   showToday = true,
   showAdjacentDays = true,
   onMonthChange,
@@ -256,6 +262,7 @@ function WhaleCalendar({
             isSunday: cell.isSunday,
             isSaturday: cell.isSaturday,
             isToday: showToday && isToday(cell.date),
+            isSelected: selectedDate ? isSameDay(cell.date, selectedDate) : false,
             schedules: dayData?.schedules,
             holiday: dayData?.holiday,
             highlight: dayData?.highlight,
@@ -275,6 +282,7 @@ export {
   formatDateKey,
   generateCalendarGrid,
   getDayOfWeek,
+  isSameDay,
   isToday,
   parseDateKey
 };

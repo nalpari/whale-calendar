@@ -31,6 +31,17 @@ export function isToday(date: Date): boolean {
 }
 
 /**
+ * 두 날짜가 같은 날인지 비교
+ */
+export function isSameDay(date1: Date, date2: Date): boolean {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
+/**
  * 요일 인덱스 반환 (0=일, 6=토)
  */
 export function getDayOfWeek(date: Date): number {

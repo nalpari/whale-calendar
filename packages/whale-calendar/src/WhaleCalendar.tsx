@@ -1,5 +1,5 @@
 import { CalendarDay } from './CalendarDay';
-import { generateCalendarGrid, formatDateKey, isToday as checkIsToday } from './utils';
+import { generateCalendarGrid, formatDateKey, isToday as checkIsToday, isSameDay } from './utils';
 import type { WhaleCalendarProps } from './types';
 
 const WEEKDAYS_KO = ['일', '월', '화', '수', '목', '금', '토'];
@@ -18,6 +18,7 @@ export function WhaleCalendar({
   year: initialYear,
   month: initialMonth,
   data = {},
+  selectedDate,
   showToday = true,
   showAdjacentDays = true,
   onMonthChange,
@@ -132,6 +133,7 @@ export function WhaleCalendar({
                   isSunday={cell.isSunday}
                   isSaturday={cell.isSaturday}
                   isToday={showToday && checkIsToday(cell.date)}
+                  isSelected={selectedDate ? isSameDay(cell.date, selectedDate) : false}
                   schedules={dayData?.schedules}
                   holiday={dayData?.holiday}
                   highlight={dayData?.highlight}
